@@ -27,7 +27,7 @@ RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; 
 
 ADD docker-entrypoint.sh ./docker-entrypoint.sh
 
-ENV R_HOME /usr/lib/R
+ENV R_HOME /usr/lib64/R
 
 RUN dos2unix ./docker-entrypoint.sh \
 	&& chmod a+x ./docker-entrypoint.sh
