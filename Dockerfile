@@ -29,6 +29,13 @@ ADD docker-entrypoint.sh ./docker-entrypoint.sh
 
 ENV R_HOME /usr/lib64/R
 
+RUN curl -o /etc/yum.repos.d/mssql-release.repo https://packages.microsoft.com/config/rhel/7/prod.repo && echo "curled" \
+    && yum remove unixODBC-utf16 unixODBC-utf16-devel \
+    && ACCEPT_EULA=Y yum install -y msodbcsql17-17.1.0.1-1 mssql-tools-17.1.0.1-1 unixODBC-devel && echo "installed" \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile && echo "exported to bash_profile" \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && echo "exported to bashrc" \
+    && source ~/.bashrc
+
 RUN dos2unix ./docker-entrypoint.sh \
 	&& chmod a+x ./docker-entrypoint.sh
 
