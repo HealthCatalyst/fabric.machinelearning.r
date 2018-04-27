@@ -1,3 +1,5 @@
+print("Hello world")
+
 library(RODBC)
 
 args = commandArgs(trailingOnly=TRUE)
@@ -5,7 +7,7 @@ servername = args[1]
 
 connectionstring <- paste("driver=ODBC Driver 17 for SQL Server;server=",servername, ";Database=master;Trusted_Connection=yes", sep = "")
 
-print("Hello world")
+print(connectionstring)
 
 sql<-c("select name from sys.databases")
 tryCatch({

@@ -14,6 +14,8 @@ RUN yum -y install R; yum clean all
 
 ADD R.css /usr/share/doc/R-3.4.4/html/
 
+ENV R_HOME /usr/lib64/R
+
 # Setup R configs. R package versions are not yet specified; will use most recent.
 RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; options(repos = r); .libPaths('/usr/lib64/R/library')" > ~/.Rprofile \
     && Rscript -e "install.packages(c('ggplot2', 'needs', 'jsonlite', 'dplyr', 'RODBC', 'healthcareai'))"
@@ -26,8 +28,7 @@ RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; 
 #     && systemctl enable rstudio-server.service
 
 ADD docker-entrypoint.sh ./docker-entrypoint.sh
-
-ENV R_HOME /usr/lib64/R
+ADD testsql.R ./testsql.R
 
 RUN curl -o /etc/yum.repos.d/mssql-release.repo https://packages.microsoft.com/config/rhel/7/prod.repo && echo "curled" \
     && yum remove unixODBC-utf16 unixODBC-utf16-devel \
