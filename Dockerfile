@@ -1,6 +1,6 @@
 FROM healthcatalyst/fabric.baseos:latest
 LABEL maintainer="Health Catalyst"
-LABEL version="1.0"
+LABEL version="1.1"
 
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
@@ -28,6 +28,7 @@ RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; 
 #     && systemctl enable rstudio-server.service
 
 ADD docker-entrypoint.sh ./docker-entrypoint.sh
+ADD login.sh ./login.sh
 ADD testsql.R ./testsql.R
 
 RUN curl -o /etc/yum.repos.d/mssql-release.repo https://packages.microsoft.com/config/rhel/7/prod.repo && echo "curled" \
@@ -37,8 +38,11 @@ RUN curl -o /etc/yum.repos.d/mssql-release.repo https://packages.microsoft.com/c
     && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && echo "exported to bashrc" \
     && source ~/.bashrc
 
-RUN dos2unix ./docker-entrypoint.sh \
-	&& chmod a+x ./docker-entrypoint.sh
+RUN dos2unix ./docker-entrypoint.sh &>/dev/null \
+	&& chmod a+x ./docker-entrypoint.sh \
+    dos2unix ./login.sh &>/dev/null \
+	&& chmod a+x ./login.sh \
+    && dos2unix ./testsql.R &>/dev/null
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
