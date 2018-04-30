@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "fabric.machinelearning.r version 2018.04.30.01"
+echo "---- begin login.sh from fabric.machinelearning.r version 2018.04.30.01 ----"
 
 if [[ ! -z "${SERVICE_USER:-}" ]]; then
     if [[ -z "${SERVICE_USER:-}" ]]; then
@@ -28,3 +28,4 @@ else
     echo "No SERVICE_USER was specified so running without authenticating to Active Directory"
 fi
 
+echo "---- end of login.sh from fabric.machinelearning.r ---"
