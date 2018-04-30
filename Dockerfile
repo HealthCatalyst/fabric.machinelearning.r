@@ -41,8 +41,7 @@ RUN curl -o /etc/yum.repos.d/mssql-release.repo https://packages.microsoft.com/c
 RUN dos2unix ./docker-entrypoint.sh &>/dev/null \
 	&& chmod a+x ./docker-entrypoint.sh \
     dos2unix ./login.sh &>/dev/null \
-	&& chmod a+x ./login.sh \
-    && dos2unix ./testsql.R &>/dev/null
+	&& chmod a+x ./login.sh 
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
