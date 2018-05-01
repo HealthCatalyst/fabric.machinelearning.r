@@ -38,10 +38,10 @@ RUN curl -o /etc/yum.repos.d/mssql-release.repo https://packages.microsoft.com/c
     && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && echo "exported to bashrc" \
     && source ~/.bashrc
 
-RUN dos2unix ./docker-entrypoint.sh &>/dev/null \
-	&& chmod a+x ./docker-entrypoint.sh \
-    dos2unix ./login.sh &>/dev/null \
-	&& chmod a+x ./login.sh 
+RUN dos2unix ./docker-entrypoint.sh
+RUN chmod a+x ./docker-entrypoint.sh
+RUN dos2unix ./login.sh
+RUN chmod a+x ./login.sh 
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
