@@ -26,6 +26,11 @@ if [[ ! -z "${SERVICE_USER:-}" ]]; then
     fi
 
     /opt/install/setupkeytab.sh $SERVICE_USER $AD_DOMAIN $SERVICE_PASSWORD $AD_DOMAIN_SERVER
+
+    if [[ ! -z "${TEST_SQL_SERVER:-}" ]]; then
+        echo "testing login from R to SQL Server [$TEST_SQL_SERVER] using Integrated Authentication"
+        Rscript ./testsql.R $TEST_SQL_SERVER
+    fi
 else
     echo "No SERVICE_USER was specified so running without authenticating to Active Directory"
 fi
