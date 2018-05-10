@@ -26,9 +26,6 @@ if [[ ! -z "${SERVICE_USER:-}" ]]; then
     fi
 
     /opt/install/setupkeytab.sh $SERVICE_USER $AD_DOMAIN $SERVICE_PASSWORD $AD_DOMAIN_SERVER
-
-    echo "testing login to Active Directory"
-    Rscript ./testsql.R
 else
     echo "No SERVICE_USER was specified so running without authenticating to Active Directory"
 fi
