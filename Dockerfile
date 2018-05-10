@@ -8,9 +8,11 @@ RUN yum -y install epel-release; yum clean all
 RUN mkdir -p /usr/lib64/R/library \
     && chown docker:docker /usr/lib64/R/library \
     && mkdir -p /usr/share/doc/R-3.4.4/html \
-    && chown docker:docker /usr/lib64/R/library 
-
-RUN yum -y install R; yum clean all
+    && chown docker:docker /usr/share/doc/R-3.4.4/html \
+    && mkdir -p /usr/lib64/R/doc/html \
+    && chown docker:docker /usr/lib64/R/doc/html 
+    
+RUN yum -y install R libcurl-devel; yum clean all
 
 ADD R.css /usr/share/doc/R-3.4.4/html/
 
